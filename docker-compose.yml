@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  portainer:
+    image: portainer/portainer-ce
+    restart: always
+    container_name: portainer
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+  nexus:
+    image: sonatype/nexus3
+    restart: always
+    volumes:
+      - "nexus-data:/sonatype-work"
+    ports:
+      - "8081:8081"
+    platform: linux/amd64
+    container_name: nexus
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: root
+    ports:
+      - "8080:8080"
+    container_name: jenkins
+    privileged: true
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    restart: unless-stopped
+volumes:
+  portainer_data:
+  nexus-data: {}
+  jenkins_home:
