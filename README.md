@@ -1,1 +1,1 @@
-Portainer, Jenkins ve Nexus docker-compose kullanarak oluşturma.
+Portainer, Jenkins ve Nexus docker-compose file
